@@ -75,8 +75,8 @@ function CheckoutPage() {
     const { data, error } = await supabase.rpc("place_order", {
       _delivery_address: address,
       _hostel_block: hostel,
-      _delivery_slot: slot,
-      _payment_method: payment,
+      _delivery_slot: slot as "slot_9_12" | "slot_12_3" | "slot_3_6",
+      _payment_method: payment as "cod" | "upi" | "card",
       _coupon_code: couponDiscount > 0 ? coupon.trim().toUpperCase() : "",
     });
     setPlacing(false);
