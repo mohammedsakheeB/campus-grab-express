@@ -14,16 +14,304 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      cart: {
+        Row: {
+          created_at: string
+          id: string
+          product_id: string
+          quantity: number
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          product_id: string
+          quantity?: number
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          product_id?: string
+          quantity?: number
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "cart_product_id_fkey"
+            columns: ["product_id"]
+            isOneToOne: false
+            referencedRelation: "products"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      coupons: {
+        Row: {
+          code: string
+          created_at: string
+          discount_percent: number
+          is_active: boolean
+        }
+        Insert: {
+          code: string
+          created_at?: string
+          discount_percent: number
+          is_active?: boolean
+        }
+        Update: {
+          code?: string
+          created_at?: string
+          discount_percent?: number
+          is_active?: boolean
+        }
+        Relationships: []
+      }
+      order_items: {
+        Row: {
+          created_at: string
+          id: string
+          order_id: string
+          price_at_purchase: number
+          product_id: string
+          product_name: string
+          quantity: number
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          order_id: string
+          price_at_purchase: number
+          product_id: string
+          product_name: string
+          quantity: number
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          order_id?: string
+          price_at_purchase?: number
+          product_id?: string
+          product_name?: string
+          quantity?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "order_items_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: false
+            referencedRelation: "orders"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "order_items_product_id_fkey"
+            columns: ["product_id"]
+            isOneToOne: false
+            referencedRelation: "products"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      orders: {
+        Row: {
+          coupon_code: string | null
+          created_at: string
+          delivery_address: string
+          delivery_slot: Database["public"]["Enums"]["delivery_slot"]
+          discount_amount: number
+          hostel_block: string
+          id: string
+          order_status: Database["public"]["Enums"]["order_status"]
+          payment_method: Database["public"]["Enums"]["payment_method"]
+          total_amount: number
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          coupon_code?: string | null
+          created_at?: string
+          delivery_address: string
+          delivery_slot: Database["public"]["Enums"]["delivery_slot"]
+          discount_amount?: number
+          hostel_block: string
+          id?: string
+          order_status?: Database["public"]["Enums"]["order_status"]
+          payment_method?: Database["public"]["Enums"]["payment_method"]
+          total_amount: number
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          coupon_code?: string | null
+          created_at?: string
+          delivery_address?: string
+          delivery_slot?: Database["public"]["Enums"]["delivery_slot"]
+          discount_amount?: number
+          hostel_block?: string
+          id?: string
+          order_status?: Database["public"]["Enums"]["order_status"]
+          payment_method?: Database["public"]["Enums"]["payment_method"]
+          total_amount?: number
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      products: {
+        Row: {
+          category: Database["public"]["Enums"]["product_category"]
+          created_at: string
+          description: string | null
+          id: string
+          image_url: string | null
+          is_active: boolean
+          price: number
+          product_name: string
+          stock: number
+          updated_at: string
+        }
+        Insert: {
+          category: Database["public"]["Enums"]["product_category"]
+          created_at?: string
+          description?: string | null
+          id?: string
+          image_url?: string | null
+          is_active?: boolean
+          price: number
+          product_name: string
+          stock?: number
+          updated_at?: string
+        }
+        Update: {
+          category?: Database["public"]["Enums"]["product_category"]
+          created_at?: string
+          description?: string | null
+          id?: string
+          image_url?: string | null
+          is_active?: boolean
+          price?: number
+          product_name?: string
+          stock?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          created_at: string
+          email: string | null
+          hostel_block: string | null
+          id: string
+          name: string | null
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          email?: string | null
+          hostel_block?: string | null
+          id: string
+          name?: string | null
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          email?: string | null
+          hostel_block?: string | null
+          id?: string
+          name?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      user_roles: {
+        Row: {
+          created_at: string
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
+      wishlist: {
+        Row: {
+          created_at: string
+          id: string
+          product_id: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          product_id: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          product_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "wishlist_product_id_fkey"
+            columns: ["product_id"]
+            isOneToOne: false
+            referencedRelation: "products"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
+      place_order: {
+        Args: {
+          _coupon_code: string
+          _delivery_address: string
+          _delivery_slot: Database["public"]["Enums"]["delivery_slot"]
+          _hostel_block: string
+          _payment_method: Database["public"]["Enums"]["payment_method"]
+        }
+        Returns: string
+      }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "admin" | "customer"
+      delivery_slot: "slot_9_12" | "slot_12_3" | "slot_3_6"
+      order_status:
+        | "placed"
+        | "packed"
+        | "out_for_delivery"
+        | "delivered"
+        | "cancelled"
+      payment_method: "cod" | "upi" | "card"
+      product_category:
+        | "fruits_vegetables"
+        | "dairy"
+        | "snacks"
+        | "beverages"
+        | "household"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +438,24 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["admin", "customer"],
+      delivery_slot: ["slot_9_12", "slot_12_3", "slot_3_6"],
+      order_status: [
+        "placed",
+        "packed",
+        "out_for_delivery",
+        "delivered",
+        "cancelled",
+      ],
+      payment_method: ["cod", "upi", "card"],
+      product_category: [
+        "fruits_vegetables",
+        "dairy",
+        "snacks",
+        "beverages",
+        "household",
+      ],
+    },
   },
 } as const
